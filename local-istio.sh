@@ -78,7 +78,7 @@ main() {
 
   if [[ "${IS_MINIKUBE}" == 1 ]]; then
     # TODO(ajm): this is broken
-    GATEWAY_URL=$(kubectl get po -l istio=ingress -o 'jsonpath={.items[0].status.hostIP}'):$(kubectl get svc istio-ingress -o 'jsonpath={.spec.ports[0].nodePort}')
+    GATEWAY_URL=$(kubectl --namespace istio-system get po -l istio=ingress -o 'jsonpath={.items[0].status.hostIP}'):$(kubectl --namespace istio-system get svc istio-ingress -o 'jsonpath={.spec.ports[0].nodePort}')
 
   else
     GATEWAY_URL=$(kubectl get ingress gateway -o 'jsonpath={.status.loadBalancer.ingress[].ip}')
